@@ -98,7 +98,7 @@ burp2(){
 java -noverify -javaagent:burploader.jar -jar burpsuite_pro_v2020.6.jar 
 }
 smuggler(){
-python3 /home/fallaga/tools/smuggler/smuggler.py 
+python3 ~/tools/smuggler/smuggler.py 
 }
 
 nmapb(){
@@ -148,7 +148,7 @@ nmapb(){
 		cat $1.txt | while read line; do python3 ~/tools/dirsearch/dirsearch.py -e . -u "https://$line"; done
 	}
 	paramspider(){
-		python3 /home/tools/ParamSpider/paramspider.py -d $1
+		python3 ~/tools/ParamSpider/paramspider.py -d $1
 	}
 	
 	
