@@ -24,7 +24,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	alias norg="gron --ungron"
 	alias ungron="gron --ungron"
 	alias op='openvpn'
-	
+	alias bb='base64 -d'
 	# COLOURS! YAAAY!
 	export TERM=xterm-256color
 	
@@ -93,12 +93,20 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	}
 ##### extra tools
 
+portTar(){
+  for i in $(cat $1);
+  do for I in $(cat $i/hosts) ;
+  do echo "<br> ============== $I Open Ports =================  " >>$i/pors.html && nmapb $I >> $i/pors.html ;done ;done
+}
+
 burp2(){
   cd ~/java/bin
-java -noverify -javaagent:burploader.jar -jar burpsuite_pro_v2020.6.jar 
+#java -noverify -javaagent:burploader.jar -jar burpsuite_pro_v2020.6.jar 
+java -javaagent:burploader.jar -noverify -jar burpsuite_pro_v2020.9.jar -Xmx2500m
+
 }
 smuggler(){
-python3 ~/tools/smuggler/smuggler.py 
+python3 /home/fallaga/tools/smuggler/smuggler.py -u $1 
 }
 
 nmapb(){
@@ -137,7 +145,7 @@ nmapb(){
 	} #h/t Michiel Prins
 	
 	crtsh(){
-		curl -s https://crt.sh/?q=%.$1  | sed 's/<\/\?[^>]\+>//g' | grep $1
+	   curl -s https://crt.sh/?Identity=%.$1 | grep ">*.$1" | sed 's/<[/]*[TB][DR]>/\n/g' | grep -vE "<|^[\*]*[\.]*$1" | sort -u | awk 'NF'
 	}
 	
 	certnmap(){
@@ -148,7 +156,7 @@ nmapb(){
 		cat $1.txt | while read line; do python3 ~/tools/dirsearch/dirsearch.py -e . -u "https://$line"; done
 	}
 	paramspider(){
-		python3 ~/tools/ParamSpider/paramspider.py -d $1
+		python3 /home/tools/ParamSpider/paramspider.py -d $1
 	}
 	
 	
@@ -310,8 +318,8 @@ python3 ~/tools/dirsearch/dirsearch.py -u $1 -e $2 -t 50 -b
 						fi
 						
 						
-						#PS1="\[\033[0;31m\]\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\[\033[0;31m\]\342\234\227\[\033[0;37m\]]\342\224\200\")[$(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]root\[\033[01;33m\]@\[\033[01;96m\]\h'; else echo '\[\033[0;39m\]\u\[\033[01;33m\]@\[\033[01;96m\]\h'; fi)\[\033[0;31m\]]\342\224\200[\[\033[0;32m\]\w\[\033[0;31m\]]\n\[\033[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \[\033[0m\]\[\e[01;33m\]\\$\[\e[0m\]"
-						PS1='\[\033[1;30m\][\[\033[0;37m\]${PIPESTATUS}\[\033[1;30m\]:\[\033[0;37m\]${SHLVL}\[\033[1;30m\]:\[\033[0;37m\]\j\[\033[1;30m\]][\[\033[1;34m\]\u\[\033[0;34m\]@\[\033[1;34m\]\h\[\033[1;30m\]:\[\033[0;37m\]`tty | sed s/\\\\\/dev\\\\\/\//g`\[\033[1;30m\]]\[\033[0;37m\][\[\033[1;37m\]\W\[\033[0;37m\]]\[\033[1;30m\] \$\[\033[00m\] '                                                                  
+						PS1="\[\033[0;31m\]\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\[\033[0;31m\]\342\234\227\[\033[0;37m\]]\342\224\200\")[$(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]root\[\033[01;33m\]@\[\033[01;96m\]\h'; else echo '\[\033[0;39m\]\u\[\033[01;33m\]@\[\033[01;96m\]\h'; fi)\[\033[0;31m\]]\342\224\200[\[\033[0;32m\]\w\[\033[0;31m\]]\n\[\033[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \[\033[0m\]\[\e[01;33m\]\\$\[\e[0m\]"
+						#PS1='\[\033[1;30m\][\[\033[0;37m\]${PIPESTATUS}\[\033[1;30m\]:\[\033[0;37m\]${SHLVL}\[\033[1;30m\]:\[\033[0;37m\]\j\[\033[1;30m\]][\[\033[1;34m\]\u\[\033[0;34m\]@\[\033[1;34m\]\h\[\033[1;30m\]:\[\033[0;37m\]`tty | sed s/\\\\\/dev\\\\\/\//g`\[\033[1;30m\]]\[\033[0;37m\][\[\033[1;37m\]\W\[\033[0;37m\]]\[\033[1;30m\] \$\[\033[00m\] '                                                                  
 						# grey and blue with default black output
 						
 						
@@ -393,5 +401,4 @@ python3 ~/tools/dirsearch/dirsearch.py -u $1 -e $2 -t 50 -b
 								~/.oho/script.sh
 												
 												
-
 
