@@ -20,7 +20,8 @@ fi
 	alias vimpress="VIMENV=talk vim"
 	alias c="composer"
 	alias v="vagrant"
-	alias d="sudo docker"
+	alias lsl='ls -la'
+    alias d="sudo docker"
 	alias biggest="du -h --max-depth=1 | sort -h"
 	alias tnn="cd ~/src/github.com/tomnomnom"
 	alias :q="exit"
@@ -114,10 +115,11 @@ portTar(){
 }
 
 burp(){
-  cd ~/burpsuite
+#  cd ~/burpsuite
 #java -noverify -javaagent:burploader.jar -jar burpsuite_pro_v2020.6.jar 
-java -noverify -javaagent:burploader.jar -jar burpsuite_pro_v2021.4.2.jar -Xmx2500m
-
+#java -noverify -javaagent:burploader.jar -noverify -jar burpsuite_pro_v2022.9.3.jar -Xmx2500m
+#java -javaagent:/home/abid/burpsuite/BurpSuiteLoader_v2022.8.jar -noverify -jar /home/abid/burpsuite/burpsuite_pro_v2022.9.3.jar 
+	/usr/lib/jvm/java-17-openjdk-amd64/bin/java --add-opens=java.desktop/javax.swing=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED -javaagent:/home/abid/burpsuite/burploader.jar -noverify -jar /home/abid/burpsuite/burpsuite_pro_v2022.9.3.jar
 }
 smuggler(){
 python3 /opt/tools/smuggler/smuggler.py -u $1 
@@ -177,6 +179,9 @@ nmapb(){
 	ipinfo(){
 		curl http://ipinfo.io/$1
 	}
+  ipss(){
+ protonvpn s | grep IP
+}
 	deadlink() {
 		# copyright 2007 - 2010 Christopher Bratusek
 		find -L -type l
@@ -415,6 +420,6 @@ python3 /opt/tools/dirsearch/dirsearch.py -u $1 -e $2 -t 50 -b
 											if [ "$(id -u)"="0" ]; then
 												 /root/.oho/script.sh
 												fi
-								~/.oho/script.sh
+                  								#~/.oho/script.sh
 												
 												
