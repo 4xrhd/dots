@@ -29,6 +29,7 @@ fi
 	alias ungron="gron --ungron"
 	alias op='openvpn'
 	alias bb='base64 -d'
+	alias ppd='protonvpn d'
 	alias prop='protonvpn c'
 	# COLOURS! YAAAY!
 	export TERM=xterm-256color
@@ -40,8 +41,8 @@ fi
 	export PATH=${PATH}:~/bin:~/.local/bin:~/etc/scripts
 	
 	# I'd quite like for Go to work please.
-	export PATH=${PATH}:/usr/local/go/bin:$HOME/go/bin/bin
-	export GOPATH=~
+	# export PATH=${PATH}:$HOME/go/
+	export GOPATH=~/go/
 	
 	
 	# Change up a variable number of directories
@@ -111,7 +112,7 @@ transfer(){
 portTar(){
   for i in $(cat $1);
   do for I in $(cat $i/hosts) ;
-  do echo "<br> ============== $I Open Ports =================  " >>$i/pors.html && nmapb $I >> $i/pors.html ;done ;done
+  do echo "<br> ============== $I Open Ports =================  " >>$i/pors.html && nmapb $I >> $i/ports.html ;done ;done
 }
 
 burp(){
@@ -119,7 +120,7 @@ burp(){
 #java -noverify -javaagent:burploader.jar -jar burpsuite_pro_v2020.6.jar 
 #java -noverify -javaagent:burploader.jar -noverify -jar burpsuite_pro_v2022.9.3.jar -Xmx2500m
 #java -javaagent:/home/abid/burpsuite/BurpSuiteLoader_v2022.8.jar -noverify -jar /home/abid/burpsuite/burpsuite_pro_v2022.9.3.jar 
-	/usr/lib/jvm/java-17-openjdk-amd64/bin/java --add-opens=java.desktop/javax.swing=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED -javaagent:/home/abid/burpsuite/burploader.jar -noverify -jar /home/abid/burpsuite/burpsuite_pro_v2022.9.3.jar
+	/usr/lib/jvm/java-17-openjdk-amd64/bin/java --add-opens=java.desktop/javax.swing=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED -javaagent:/home/oc/burpsuite/burploader.jar -noverify -jar /home/oc/burpsuite/burpsuite_pro_v2022.9.1.jar
 }
 smuggler(){
 python3 /opt/tools/smuggler/smuggler.py -u $1 
@@ -417,9 +418,14 @@ python3 /opt/tools/dirsearch/dirsearch.py -u $1 -e $2 -t 50 -b
 											. /etc/bash_completion
 											fi
 											fi 
-											if [ "$(id -u)"="0" ]; then
-												 /root/.oho/script.sh
-												fi
+											#if [ "$(id -u)"="0" ]; then
+												 # /root/.oho/script.sh
+												#fi
                   								#~/.oho/script.sh
 												
-												
+		
+# 
+
+# Generated for pdtm. Do not edit.
+export PATH=$PATH:/home/oc/.pdtm/go/bin
+
