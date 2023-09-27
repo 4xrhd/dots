@@ -10,14 +10,18 @@ shopt -s histappend
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	. /etc/bash_completion
 	fi
-	
+
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
 	alias grep='grep --color=auto'
 	alias gg='git grep -ni'
 	alias phpunit='phpunit --colors'
 	alias vimpress="VIMENV=talk vim"
 	alias c="composer"
 	alias v="vagrant"
-	alias d="sudo docker"
+	alias lsl='ls -la'
+    alias d="sudo docker"
 	alias biggest="du -h --max-depth=1 | sort -h"
 	alias tnn="cd ~/src/github.com/tomnomnom"
 	alias :q="exit"
@@ -25,6 +29,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	alias ungron="gron --ungron"
 	alias op='openvpn'
 	alias bb='base64 -d'
+	alias ppd='protonvpn d'
+	alias prop='protonvpn c'
 	# COLOURS! YAAAY!
 	export TERM=xterm-256color
 	
@@ -35,9 +41,10 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	export PATH=${PATH}:~/bin:~/.local/bin:~/etc/scripts
 	
 	# I'd quite like for Go to work please.
-	export PATH=${PATH}:/usr/local/go/bin:$HOME/go/bin/bin
-	export GOPATH=~
-	
+	# export PATH=${PATH}:$HOME/go/
+	export GOPATH=~/go/
+	#dolphin conf
+#    export QT_QPA_PLATFORMTHEME=qt5ct
 	
 	# Change up a variable number of directories
 	# E.g:
@@ -91,22 +98,33 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	function gitPrompt {
 		command -v __git_ps1 > /dev/null && __git_ps1 " (%s)"
 	}
+    fire(){
+/home/$(whoami)/firefox/firefox
+    }
 ##### extra tools
+
+
+transfer(){
+	curl --progress-bar --upload-file "$1" "https://transfer.sh/$1"
+}
+
+
 
 portTar(){
   for i in $(cat $1);
   do for I in $(cat $i/hosts) ;
-  do echo "<br> ============== $I Open Ports =================  " >>$i/pors.html && nmapb $I >> $i/pors.html ;done ;done
+  do echo "<br> ============== $I Open Ports =================  " >>$i/pors.html && nmapb $I >> $i/ports.html ;done ;done
 }
 
-burp2(){
-  cd ~/java/bin
+burp(){
+#  cd ~/burpsuite
 #java -noverify -javaagent:burploader.jar -jar burpsuite_pro_v2020.6.jar 
-java -javaagent:burploader.jar -noverify -jar burpsuite_pro_v2020.9.jar -Xmx2500m
-
+#java -noverify -javaagent:burploader.jar -noverify -jar burpsuite_pro_v2022.9.3.jar -Xmx2500m
+#java -javaagent:/home/abid/burpsuite/BurpSuiteLoader_v2022.8.jar -noverify -jar /home/abid/burpsuite/burpsuite_pro_v2022.9.3.jar 
+	/usr/lib/jvm/java-17-openjdk-amd64/bin/java --add-opens=java.desktop/javax.swing=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED -javaagent:/home/oc/burpsuite/burploader.jar -noverify -jar /home/oc/burpsuite/burpsuite_pro_v2022.9.1.jar
 }
 smuggler(){
-python3 /home/fallaga/tools/smuggler/smuggler.py -u $1 
+python3 /opt/tools/smuggler/smuggler.py -u $1 
 }
 
 nmapb(){
@@ -153,16 +171,21 @@ nmapb(){
 	} #h/t Jobert Abma
 	
 	certbrute(){
-		cat $1.txt | while read line; do python3 ~/tools/dirsearch/dirsearch.py -e . -u "https://$line"; done
+		cat $1.txt | while read line; do python3 /opt/tools/dirsearch/dirsearch.py -e . -u "https://$line"; done
 	}
 	paramspider(){
-		python3 /home/tools/ParamSpider/paramspider.py -d $1
+		python3 /opt/tools/ParamSpider/paramspider.py -d $1
 	}
 	
-	
+	fro(){
+firefox --new-window=$1 &>/dev/null
+    }
 	ipinfo(){
-		curl http://ipinfo.io/$1
+		curl -s http://ipinfo.io/$1
 	}
+  ipss(){
+ protonvpn s | grep IP
+}
 	deadlink() {
 		# copyright 2007 - 2010 Christopher Bratusek
 		find -L -type l
@@ -201,11 +224,11 @@ nmapb(){
 	
 	#------ Tools ------
 	dirsearch(){ #runs dirsearch and takes host and extension as arguments
-python3 ~/tools/dirsearch/dirsearch.py -u $1 -e $2 -t 50 -b 
+python3 /opt/tools/dirsearch/dirsearch.py -u $1 -e $2 -t 50 -b 
 }
 	
 	knock(){
-		cd ~/tools/knock/knockpy
+		cd /opt/tools/knock/knockpy
 		python knockpy.py -w list.txt $1
 	}
 	
@@ -318,9 +341,12 @@ python3 ~/tools/dirsearch/dirsearch.py -u $1 -e $2 -t 50 -b
 						fi
 						
 						
-						PS1="\[\033[0;31m\]\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\[\033[0;31m\]\342\234\227\[\033[0;37m\]]\342\224\200\")[$(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]root\[\033[01;33m\]@\[\033[01;96m\]\h'; else echo '\[\033[0;39m\]\u\[\033[01;33m\]@\[\033[01;96m\]\h'; fi)\[\033[0;31m\]]\342\224\200[\[\033[0;32m\]\w\[\033[0;31m\]]\n\[\033[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \[\033[0m\]\[\e[01;33m\]\\$\[\e[0m\]"
-						#PS1='\[\033[1;30m\][\[\033[0;37m\]${PIPESTATUS}\[\033[1;30m\]:\[\033[0;37m\]${SHLVL}\[\033[1;30m\]:\[\033[0;37m\]\j\[\033[1;30m\]][\[\033[1;34m\]\u\[\033[0;34m\]@\[\033[1;34m\]\h\[\033[1;30m\]:\[\033[0;37m\]`tty | sed s/\\\\\/dev\\\\\/\//g`\[\033[1;30m\]]\[\033[0;37m\][\[\033[1;37m\]\W\[\033[0;37m\]]\[\033[1;30m\] \$\[\033[00m\] '                                                                  
-						# grey and blue with default black output
+						#PS1="\[\033[0;31m\]\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\[\033[0;31m\]\342\234\227\[\033[0;37m\]]\342\224\200\")[$(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]root\[\033[01;33m\]@\[\033[01;96m\]\h'; else echo '\[\033[0;39m\]\u\[\033[01;33m\]@\[\033[01;96m\]\h'; fi)\[\033[0;31m\]]\342\224\200[\[\033[0;32m\]\w\[\033[0;31m\]]\n\[\033[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \[\033[0m\]\[\e[01;33m\]\\$\[\e[0m\]"
+						#blue
+                        #PS1='\[\033[1;30m\][\[\033[0;37m\]${PIPESTATUS}\[\033[1;30m\]:\[\033[0;37m\]${SHLVL}\[\033[1;30m\]:\[\033[0;37m\]\j\[\033[1;30m\]][\[\033[1;34m\]\u\[\033[0;34m\]@\[\033[1;34m\]\h\[\033[1;30m\]:\[\033[0;37m\]`tty | sed s/\\\\\/dev\\\\\/\//g`\[\033[1;30m\]]\[\033[0;37m\][\[\033[1;37m\]\W\[\033[0;37m\]]\[\033[1;30m\] \$\[\033[00m\] '                                                                  
+					    #kkh
+                        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;91m\]\u\[\033[01;37m\] at \[\033[01;33m\]\h\[\033[01;37m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " \[\033[01;32m\][%s]")\[\033[00m\]\$ '
+                    # grey and blue with default black output
 						
 						
 						# Set 'man' colors
@@ -395,10 +421,15 @@ python3 ~/tools/dirsearch/dirsearch.py -u $1 -e $2 -t 50 -b
 											. /etc/bash_completion
 											fi
 											fi 
-											if [ "$(id -u)"="0" ]; then
-												 /root/.oho/script.sh
-												fi
-								~/.oho/script.sh
+											#if [ "$(id -u)"="0" ]; then
+												 # /root/.oho/script.sh
+												#fi
+                  								#~/.oho/script.sh
 												
-												
+		
+# 
 
+# Generated for pdtm. Do not edit.
+export PATH=$PATH:/home/oc/.pdtm/go/bin
+
+export PATH=$PATH:/opt/volatility3
