@@ -34,7 +34,8 @@ clear
 initializeANSI
 
 cat << EOF
-
+start by the name of allah 
+dont waste my time [4x]
  ${redf}╔╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╗  ${greenf}╔╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╗  ${yellowf}╔╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╗
  ${boldon}${redf}╚╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╝  ${greenf}╚╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╝  ${yellowf}╚╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╝${reset}
   ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ 

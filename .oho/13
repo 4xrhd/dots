@@ -2,7 +2,8 @@
 
 # Author: crshd
 # Source: http://crunchbang.org/forums/viewtopic.php?pid=128584#p128584
-
+echo "start by the name of allah "
+echo "dont waste my time [4x]"
 echo
 
 for f in {0..6}; do

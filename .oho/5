@@ -33,7 +33,8 @@ numbers (){
 initializeANSI
 
 cat << EOF
-
+start by the name of allah
+dont waste my time [4x]
 ${blackf}11111111${reset} ${redf}22222222${reset} ${greenf}33333333${reset} ${yellowf}44444444${reset} ${bluef}55555555${reset} ${purplef}66666666${reset} ${cyanf}77777777${reset} ${whitef}88888888${reset}
 ${blackb}11111111${reset} ${redb}22222222${reset} ${greenb}33333333${reset} ${yellowb}44444444${reset} ${blueb}55555555${reset} ${purpleb}66666666${reset} ${cyanb}77777777${reset} ${whiteb}88888888${reset}
 

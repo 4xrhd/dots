@@ -43,8 +43,12 @@ fi
 	# I'd quite like for Go to work please.
 	# export PATH=${PATH}:$HOME/go/
 	export GOPATH=~/go/
+<<<<<<< HEAD
 	#dolphin conf
 #    export QT_QPA_PLATFORMTHEME=qt5ct
+=======
+	
+>>>>>>> d90868f245d3f48283d4dd325efca6acfb688fb9
 	
 	# Change up a variable number of directories
 	# E.g:
