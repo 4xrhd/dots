@@ -1,2 +1,0 @@
-#!/bin/bash
-echo -n "¯\_(ツ)_/¯" | xclip -selection c

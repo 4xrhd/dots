@@ -1,2 +1,0 @@
-#!/bin/bash
-grep -hri '^< server:' | sort | uniq -c | sort -rn
