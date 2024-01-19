@@ -1,4 +1,4 @@
-# History control
+# # History control
 # its all about tomnomnom && nahamsec && parrotsec 
 #i am just modified it for me . :"D
 #
@@ -38,12 +38,15 @@ fi
 	export EDITOR=/usr/bin/vim
 	
 	# Personal binaries
-	export PATH=${PATH}:~/bin:~/.local/bin:~/etc/scripts
-	
-	# I'd quite like for Go to work please.
-	# export PATH=${PATH}:$HOME/go/
-	export GOPATH=~/go/
+	export PATH=${PATH}:~/bin:~/.local/bin:~/etc/scripts:~/bin/
 
+	#go to your work pls
+	export PATH=$PATH:/usr/local/go/bin
+	
+	
+	
+	#dolphin conf
+#    export QT_QPA_PLATFORMTHEME=qt5ct
 	
 	# Change up a variable number of directories
 	# E.g:
@@ -106,8 +109,10 @@ fi
 transfer(){
 	curl --progress-bar --upload-file "$1" "https://transfer.sh/$1"
 }
-
-
+#off randomizing of memory addr
+aslr(){ 
+	echo 0 | sudo tee /proc/sys/kernel/randomize_va_space 
+}
 
 portTar(){
   for i in $(cat $1);
@@ -426,7 +431,7 @@ python3 /opt/tools/dirsearch/dirsearch.py -u $1 -e $2 -t 50 -b
                   								#~/.oho/script.sh
 												
 		
-# 
+
 
 # Generated for pdtm. Do not edit.
 export PATH=$PATH:/home/oc/.pdtm/go/bin
