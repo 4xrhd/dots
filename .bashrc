@@ -187,6 +187,9 @@ firefox --new-window=$1 &>/dev/null
 	ipinfo(){
 		curl -s http://ipinfo.io/$1
 	}
+	show_ip() {
+    echo "Your current IP address is: $(curl -s ifconfig.co)"
+}
   ipss(){
  protonvpn s | grep IP
 }
@@ -437,3 +440,4 @@ python3 /opt/tools/dirsearch/dirsearch.py -u $1 -e $2 -t 50 -b
 export PATH=$PATH:/home/oc/.pdtm/go/bin
 
 export PATH=$PATH:/opt/volatility3
+# show_ip
