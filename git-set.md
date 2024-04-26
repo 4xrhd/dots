@@ -14,7 +14,7 @@ Git can utilize credential managers to securely store and retrieve credentials. 
 git config --global credential.helper cache
 ```
 
-##This command caches your credentials in memory for a certain period. If you prefer to store them permanently, you can use the store helper:
+## This command caches your credentials in memory for a certain period. If you prefer to store them permanently, you can use the store helper:
 
 ```bash 
 git config --global credential.helper store
