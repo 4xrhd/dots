@@ -1,5 +1,0 @@
-#!/bin/bash
-
-echo "hello BurpSuite PRO" ;
-cd /home/$(whoami)/java/bin
-./java -Xmx3072M -noverify -Xbootclasspath/p:Loader.jar -jar burpsuite_pro_v2020.2.jar
