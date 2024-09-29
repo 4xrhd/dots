@@ -38,7 +38,7 @@ fi
 	export EDITOR=/usr/bin/vim
 	
 	# Personal binaries
-	export PATH=${PATH}:~/bin:~/.local/bin:~/etc/scripts:~/bin/
+	export PATH=${PATH}:~/bin:~/.local/bin:~/etc/scripts:~/bin/:~/go/bin
 
 	#go to your work pls
 	export PATH=$PATH:/usr/local/go/bin
@@ -121,11 +121,7 @@ portTar(){
 }
 
 burp(){
-#  cd ~/burpsuite
-#java -noverify -javaagent:burploader.jar -jar burpsuite_pro_v2020.6.jar 
-#java -noverify -javaagent:burploader.jar -noverify -jar burpsuite_pro_v2022.9.3.jar -Xmx2500m
-#java -javaagent:/home/abid/burpsuite/BurpSuiteLoader_v2022.8.jar -noverify -jar /home/abid/burpsuite/burpsuite_pro_v2022.9.3.jar 
-	/usr/lib/jvm/java-17-openjdk-amd64/bin/java --add-opens=java.desktop/javax.swing=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED -javaagent:/home/oc/burpsuite/burploader.jar -noverify -jar /home/oc/burpsuite/burpsuite_pro_v2022.9.1.jar
+~/burp/burploader.jar
 }
 smuggler(){
 python3 /opt/tools/smuggler/smuggler.py -u $1 
@@ -428,16 +424,20 @@ python3 /opt/tools/dirsearch/dirsearch.py -u $1 -e $2 -t 50 -b
 											. /etc/bash_completion
 											fi
 											fi 
-											#if [ "$(id -u)"="0" ]; then
-												 # /root/.oho/script.sh
-												#fi
+											if [ "$(id -u)"="0" ]; then
+												 /root/.oho/script.sh
+												fi
                   								#~/.oho/script.sh
 												
 		
 
 
 # Generated for pdtm. Do not edit.
-export PATH=$PATH:/home/oc/.pdtm/go/bin
+export PATH=$PATH:/home/tr/.pdtm/go/bin
 
 export PATH=$PATH:/opt/volatility3
 # show_ip
+source ~/dots/ffuf_comletaion.sh
+
+
+
