@@ -1,0 +1,1 @@
+/home/oc/dotfiles/.gf
