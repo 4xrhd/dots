@@ -55,3 +55,31 @@ nc -l -n -vv -p $1 -k
 crtshdirsearch(){ #gets all domains from crtsh, runs httprobe and then dir bruteforcers
 curl -s https://crt.sh/?q\=%.$1\&output\=json | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u | httprobe -c 50 | grep https | xargs -n1 -I{} python3 ~/tools/dirsearch/dirsearch.py -u {} -e $2 -t 50 -b 
 }
+
+_httpx_completions() {
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts="
+    -l -list -rr -request -u -target
+    -sc -status-code -cl -content-length -ct -content-type -location -favicon -hash -jarm -rt -response-time -lc -line-count -wc -word-count -title -bp -body-preview -server -td -tech-detect -method -websocket -ip -cname -extract-fqdn -efqdn -asn -cdn -probe
+    -ss -screenshot -system-chrome -ho -headless-options -esb -exclude-screenshot-bytes -ehb -exclude-headless-body -st -screenshot-timeout -sid -screenshot-idle
+    -mc -match-code -ml -match-length -mlc -match-line-count -mwc -match-word-count -mfc -match-favicon -ms -match-string -mr -match-regex -mcdn -match-cdn -mrt -match-response-time -mdc -match-condition
+    -er -extract-regex -ep -extract-preset
+    -fc -filter-code -fep -filter-error-page -fd -filter-duplicates -fl -filter-length -flc -filter-line-count -fwc -filter-word-count -ffc -filter-favicon -fs -filter-string -fe -filter-regex -fcdn -filter-cdn -frt -filter-response-time -fdc -filter-condition -strip
+    -t -threads -rl -rate-limit -rlm -rate-limit-minute
+    -pa -probe-all-ips -p -ports -path -tls-probe -csp-probe -tls-grab -pipeline -http2 -vhost -ldv -list-dsl-variables
+    -up -update -duc -disable-update-check
+    -o -output -oa -output-all -sr -store-response -srd -store-response-dir -ob -omit-body -csv -csvo -csv-output-encoding -j -json -irh -include-response-header -irr -include-response -irrb -include-response-base64 -include-chain -store-chain -svrc -store-vision-recon-cluster -pr -protocol -fepp -filter-error-page-path
+    -config -r -resolvers -allow -deny -sni -sni-name -random-agent -H -header -http-proxy -proxy -unsafe -resume -fr -follow-redirects -maxr -max-redirects -fhr -follow-host-redirects -rhsts -respect-hsts -vhost-input -x -body -s -stream -sd -skip-dedupe -ldp -leave-default-ports -ztls -no-decode -tlsi -tls-impersonate -no-stdin -hae -http-api-endpoint
+    -health-check -hc -debug -debug-req -debug-resp -version -stats -profile-mem -silent -v -verbose -si -stats-interval -nc -no-color -tr -trace
+    -nf -no-fallback -nfs -no-fallback-scheme -maxhr -max-host-error -e -exclude -retries -timeout -delay -rsts -response-size-to-save -rstr -response-size-to-read
+    -auth -ac -auth-config -pd -dashboard -tid -team-id -aid -asset-id -aname -asset-name -pdu -dashboard-upload
+    "
+
+    if [[ ${cur} == -* ]]; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+    fi
+}
+complete -F _httpx_completions httpx

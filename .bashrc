@@ -121,7 +121,7 @@ portTar(){
 }
 
 burp(){
-~/burp/burploader.jar
+~/burp/burp
 }
 smuggler(){
 python3 /opt/tools/smuggler/smuggler.py -u $1 
@@ -440,4 +440,4 @@ export PATH=$PATH:/opt/volatility3
 source ~/dots/ffuf_comletaion.sh
 
 
-
+source ~/dots/.bash_profile
