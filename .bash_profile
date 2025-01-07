@@ -82,4 +82,41 @@ _httpx_completions() {
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
     fi
 }
+
+
+
 complete -F _httpx_completions httpx
+
+
+_subfinder_completions() {
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts="
+    -cd
+    -config
+    -d
+    -dL
+    -exclude-sources
+    -max-time
+    -nC
+    -nW
+    -o
+    -oD
+    -oI
+    -oJ
+    -r
+    -rL
+    -silent
+    -sources
+    -t
+    -timeout
+    -v
+    -version
+    "
+    if [[ ${cur} == -* ]]; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+    fi
+}
+complete -F _subfinder_completions subfinder
