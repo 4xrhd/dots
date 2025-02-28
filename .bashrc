@@ -31,6 +31,7 @@ fi
 	alias bb='base64 -d'
 	alias ppd='protonvpn d'
 	alias prop='protonvpn c'
+	alias xclip='xclip -selection clipboard'
 	# COLOURS! YAAAY!
 	export TERM=xterm-256color
 	

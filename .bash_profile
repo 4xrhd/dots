@@ -84,7 +84,6 @@ _httpx_completions() {
 }
 
 
-
 complete -F _httpx_completions httpx
 
 
